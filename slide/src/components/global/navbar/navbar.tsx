@@ -1,40 +1,31 @@
-import { usePath } from "@/hooks/user-nav";
-import { LogoSmall } from "@/svg/logo-small";
-import React from "react";
-import Items from "./items";
-import { Separator } from "@/components/ui/separator";
-import ClerkAuthState from "../clerk-auth-state";
-import { HelpDuoToneWhite } from "@/icons/help-duotone-white"; 
-import SubscriptionPlan from "../subscription-plan/subscription-plan";
-import UpgradeCard from "./upgrade-card";
+'use client'
+import { PAGE_BREAD_CRUMBS } from '@/constants/pages'
+import { usePath } from '@/hooks/user-nav'
+import { Menu } from 'lucide-react'
+import React from 'react'
+import Sheet from '../sheet/sheet'
+import { LogoSmall } from '@/svg/logo-small'
+import Items from '../sidebar/items'
+import { Separator } from '@/components/ui/separator'
+import ClerkAuthState from '../clerk-auth-state'
+import { HelpDuoToneWhite } from '@/icons/help-duotone-white'
+import SubscriptionPlan from '../subscription-plan/subscription-plan'
+import UpgradeCard from '../sidebar/upgrade-card'
 
 type Props = {
-  slug: string;
-};
+    slug: string
+}
 
-function Sidebar({ slug }: Props) {
-  //usePath- render out the slug and the page that user is on
-  const { page } = usePath();
-  return (
-    <div
-      className="w-[250px] 
-    border-[1px]
-    radial 
-    fixed 
-    left-0 
-    lg:inline-block
-    border-[#545454] 
-    bg-gradient-to-b from-[#768BDD] 
-    via-[#171717]
-     to-[#768BDD] 
-     hidden 
-     bottom-0 
-     top-0 
-     m-3 
-     rounded-3xl 
-     overflow-hidden"
-    >
-      <div
+function Navbar({slug}: Props) {
+    const {page} = usePath();
+    const currentPage = PAGE_BREAD_CRUMBS.includes(page) || page == slug;
+    return currentPage && (<div className="flex flex-col">
+        <div className="flex gap-x-3 lg:gap-x-5 justify-end">
+            <span className="lg:hidden flex items-center flex-1 gap-x-2">
+                <Sheet trigger={<Menu/>}
+                className="lg-hidden"
+                side='left'>
+                    <div
         className="flex flex-col 
           gap-y-5
           w-full 
@@ -78,8 +69,11 @@ function Sidebar({ slug }: Props) {
         </div>
       </SubscriptionPlan>
     </div>
+                </Sheet>
+            </span>
+        </div>
     </div>
-  );
+    )
 }
 
-export default Sidebar;
+export default Navbar
