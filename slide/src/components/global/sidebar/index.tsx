@@ -2,6 +2,9 @@ import { usePath } from "@/hooks/user-nav";
 import { LogoSmall } from "@/svg/logo-small";
 import React from "react";
 import Items from "./items";
+import { Separator } from "@/components/ui/separator";
+import ClerkAuthState from "../clerk-auth-state";
+import { HelpDuoToneWhite } from "@/icons/help-duotone-white"; 
 
 type Props = {
   slug: string;
@@ -50,6 +53,21 @@ function Sidebar({ slug }: Props) {
             page={page}
             slug={slug}
           />
+      </div>
+      <div className="px-16">
+        <Separator
+          orientation="horizontal"
+          className="bg-[#333336]"
+        />
+      </div>
+      <div className="px-3 flex flex-col gap-y-5">
+        <div className="flex gap-x-2">
+          <ClerkAuthState></ClerkAuthState>
+          <p className="text-[#9B9CA0]">Profile</p>
+        </div>
+        <div className="flex gap-x-3">
+          <HelpDuoToneWhite></HelpDuoToneWhite>
+        </div>
       </div>
     </div>
     </div>
