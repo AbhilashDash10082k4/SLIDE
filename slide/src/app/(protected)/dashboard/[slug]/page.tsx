@@ -1,0 +1,1 @@
+//route to access user's all details
