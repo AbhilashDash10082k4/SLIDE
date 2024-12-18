@@ -10,7 +10,7 @@ export type FieldProps = {
   id: string
 }
 
-type SideBarProps = {
+export type SideBarProps = {
   icon: React.ReactNode
 } & FieldProps
 
