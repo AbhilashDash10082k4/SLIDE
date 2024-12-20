@@ -1,5 +1,5 @@
 "use client";
-import { PAGE_BREAD_CRUMBS } from "@/constants/pages";
+import { PAGE_BREAD_CRUMBS } from "@/constants/pages"; 
 import { usePath } from "@/hooks/user-nav";
 import { Menu } from "lucide-react";
 import React from "react";
@@ -12,7 +12,7 @@ import SubscriptionPlan from "../subscription-plan/subscription-plan";
 import UpgradeCard from "../sidebar/upgrade-card";
 import Sheet from "../sheet/sheet";
 import CreateAutomation from "../create-automation";
-import Search from "../search";
+import Search from "./search";
 import { NOtifications } from "./notifications";
 import BreadCrumbs from "../main-bread-crumbs";
 
@@ -22,13 +22,16 @@ type Props = {
 
 function Navbar({ slug }: Props) {
   const { page } = usePath();
+  //If the page is included in the PAGE_BREAD_CRUMBS or matches slug, currentPage evaluates to true. Otherwise, it is false.
   const currentPage = PAGE_BREAD_CRUMBS.includes(page) || page == slug;
   return (
+    //if currentPage is true then return teh following-
     currentPage && (
       <div className="flex flex-col">
         <div className="flex gap-x-3 lg:gap-x-5 justify-end">
           <span className="lg:hidden flex items-center flex-1 gap-x-2">
             <Sheet trigger={<Menu />} className="lg-hidden" side="left">
+            {/*Putting side bar components in sheet- the hamburger component*/}
               <div
                 className="flex flex-col 
           gap-y-5

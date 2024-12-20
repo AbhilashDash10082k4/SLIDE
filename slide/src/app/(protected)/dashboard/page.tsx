@@ -4,10 +4,10 @@ import React from 'react'
 type Props = {}
 
 const Page = async (props: Props) => {
-    //Server acn to onboard users, if the user exists then direct to respective dashobard page, if user not found- then redirect to sign-in/sign-up page
-  
-
-  return redirect('/sign-in')
+  //Server acn to onboard users, if the user exists then direct to respective dashobard page, if user not found- then redirect to sign-in/sign-up page
+  return (
+    <div>page</div>
+  )
 }
 
 export default Page

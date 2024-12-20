@@ -14,10 +14,11 @@ function BreadCrumbs({page, slug}: Props) {
         <p className="text-text-secondary text-lg">Welcome Back</p>
         <h2 className="capitalize text-4xl font-medium">{slug}!</h2>
         </div>
-        </div>)}
+        </div>
+      )}
         <span className="radial--gradient inline-flex py-5 lg:py-10 pr-16 gap-x-2">
           {PAGE_ICONS[page.toUpperCase()]}
-          <h2 className=""></h2>
+          <h2 className="font-semibold text-3xl capitalize">{page}</h2>
         </span>
     </div>
   )

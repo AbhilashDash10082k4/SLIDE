@@ -1,4 +1,5 @@
 //UI while Loading the dashboard page
+// import Loader from '@/global/loader'
 import Loader from '@/components/global/loader'
 import React from 'react'
 

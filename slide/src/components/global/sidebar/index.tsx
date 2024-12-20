@@ -1,3 +1,4 @@
+'use client';
 import { usePath } from "@/hooks/user-nav";
 import { LogoSmall } from "@/svg/logo-small";
 import React from "react";
@@ -13,7 +14,7 @@ type Props = {
 };
 
 function Sidebar({ slug }: Props) {
-  //usePath- render out the slug and the page that user is on
+  //usePath- render out the slug and the page that user is on,  Useful for navigation-related tasks, breadcrumbs, or determining the current page dynamically.
   const { page } = usePath();
   return (
     <div
@@ -76,7 +77,7 @@ function Sidebar({ slug }: Props) {
         <div className="flex flex-1 flex-col justify-end">
           <UpgradeCard/>
         </div>
-      </SubscriptionPlan>
+      </SubscriptionPlan> 
     </div>
     </div>
   );

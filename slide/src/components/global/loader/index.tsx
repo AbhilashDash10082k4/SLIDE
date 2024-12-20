@@ -5,7 +5,7 @@ import { Spinner } from './spinner'
 type Props = {
     state: boolean //whether the loader has to spin or not
     className?: string
-    children?: React.ReactNode
+    children: React.ReactNode
     color?: string
 }
 

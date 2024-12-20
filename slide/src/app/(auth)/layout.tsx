@@ -1,38 +1,13 @@
-import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans } from 'next/font/google'
-import { ClerkProvider } from '@clerk/nextjs'
-import './globals.css'
-import { ThemeProvider } from '@/providers/theme-provider'
-import { Toaster } from 'sonner'
+import React from 'react'
 
-const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'Slide',
-  description: 'Automate DMs and comments on instagram',
+type Props = {
+  children: React.ReactNode
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+const Layout = ({ children }: Props) => {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          suppressHydrationWarning
-          className={jakarta.className}
-        >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            disableTransitionOnChange
-          >
-            <Toaster />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <div className="h-screen flex justify-center items-center">{children}</div>
   )
 }
+
+export default Layout
