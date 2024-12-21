@@ -1,13 +1,16 @@
+import { Button } from '@/components/ui/button'
 import { PLANS } from '@/constants/pages'
 import { cn } from '@/lib/utils'
 import { CircleCheck } from 'lucide-react'
 import React from 'react'
 
 type Props = {
-    label: string, landing: boolean, current: 'FREE' | 'PRO' 
+  label: string
+  current: 'PRO' | 'FREE'
+  landing?: boolean
 }
 
-export default function PaymentCard({label, landing, current}: Props) {
+const PaymentCard = ({ current, label, landing }: Props) => {
   return (
     <div
       className={cn(
@@ -48,19 +51,53 @@ export default function PaymentCard({label, landing, current}: Props) {
           <p className="font-bold mt-2 text-text-secondary">Standard</p>
         )}
         {label === 'PRO' ? (
-            <p className="mb-2">
-                <b className="text-xl">$99</b>/month
-            </p>
+          <p className="mb-2">
+            <b className="text-xl">$99</b>/month
+          </p>
         ) : (
-            <p className="text-xl mb-2">Free</p>
+          <p className="text-xl mb-2">Free</p>
         )}
-        {PLANS [label === 'PRO' ? 1 : 0].features.map((i) => (
-            <p key={i} className='mt-2 flex gap-3 text-muted-foreground'>
-                <CircleCheck className='text-indigo-700'/>
-                {i}
-            </p>
+
+        {PLANS[label === 'PRO' ? 1 : 0].features.map((i) => (
+          <p
+            key={i}
+            className="mt-2 text-muted-foreground flex gap-2 "
+          >
+            <CircleCheck className="text-indigo-500" />
+            {i}
+          </p>
         ))}
-    </div>
+
+        {landing ? (
+          <Button
+            className={cn(
+              'rounded-full mt-5',
+              label === 'PRO'
+                ? 'bg-gradient-to-r from-indigo-500 text-white via-purple-500 to-pink-500'
+                : 'bg-background-80 text-white hover:text-background-80'
+            )}
+          >
+            {label === current
+              ? 'Get Started'
+              : current === 'PRO'
+              ? 'Free'
+              : 'Get Started'}
+          </Button>
+        ) : (
+          <Button
+            className="rounded-full mt-5 bg-background-80 text-white hover:text-background-80"
+            disabled={label === current}
+          >
+            {label === current
+              ? 'Active'
+              : current === 'PRO'
+              ? 'Downgrade'
+              : 'Upgrade'}
+          </Button>
+        )}
+      </div>
     </div>
   )
 }
+
+export default PaymentCard
