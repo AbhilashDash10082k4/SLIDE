@@ -14,28 +14,29 @@ datasource db {
 }
 
 model User {
-  //id == name of some prop, @id specifies type of id to communicate with db
   id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   clerkId      String         @unique
   email        String         @unique
   firstname    String?        @unique
   lastname     String?        @unique
-  createdAt    DateTime       @default(now()) //record the current time of entry of user in db
-  subscription Subscription[] //[] means that User can have many relations with Subscription, i.e user can have many subscriptions
-  automations  Automation[] //multiple automations
-  Integrations Integrations[] //multiple integrations, multiple insta accnts
+  createdAt    DateTime       @default(now())
+  subscription Subscription?
+  integrations Integrations[]
+  automations  Automation[]
 }
 
 model Subscription {
-  id     String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  //linking Subscription to Users, 1st tell what type of connection
-  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String? @unique @db.Uuid //this field connects User with Subscription
+  id         String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  User       User?             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String?           @unique @db.Uuid
+  createdAt  DateTime          @default(now())
+  plan       SUBSCRIPTION_PLAN @default(FREE)
+  updatedAt  DateTime          @default(now())
+  customerId String?           @unique
 }
 
 model Integrations {
   id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  //INTEGRATIONS is an ENUM
   name        INTEGRATIONS @default(INSTAGRAM)
   createdAt   DateTime     @default(now())
   User        User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -54,7 +55,7 @@ model Automation {
   listener  Listener?
   posts     Post[]
   dms       Dms[]
-  User      User?     @relation(fields: [userId], references: [id], onDelete: Cascade) //references == what this relation references in User table
+  User      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?   @db.Uuid
   keywords  Keyword[]
 }
@@ -78,7 +79,7 @@ model Post {
   Automation   Automation? @relation(fields: [automationId], references: [id], onDelete: Cascade)
   automationId String?     @db.Uuid
 }
-//Responding back to a DM or a comment
+
 model Listener {
   id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   Automation   Automation @relation(fields: [automationId], references: [id], onDelete: Cascade)
@@ -89,7 +90,7 @@ model Listener {
   dmCount      Int        @default(0)
   commentCount Int        @default(0)
 }
-//Trigger - causes the automation to start
+
 model Trigger {
   id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   type         String

@@ -14,7 +14,7 @@ import Sheet from "../sheet/sheet";
 import CreateAutomation from "../create-automation";
 import Search from "./search";
 import { NOtifications } from "./notifications";
-import BreadCrumbs from "../main-bread-crumbs";
+import BreadCrumbs from "../bread-crumbs/main-bread-crumbs";
 
 type Props = {
   slug: string;
