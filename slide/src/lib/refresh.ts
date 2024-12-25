@@ -9,7 +9,13 @@ import axios from 'axios'
 /*Query params = grant_type=ig_refresh_token: Specifies the grant type for refreshing the token.
 access_token=${token}: Passes the current access token to the API.
 
-The function returns the data field from the API response.
+The function returns the data field from the API response.- 
+{
+  "access_token": "new_long_lived_access_token",
+  "token_type": "bearer",
+  "expires_in": 5184000 // Time to expiry in seconds (e.g., 60 days)
+}
+
 The API response typically includes the new access token and its expiration time.*/
 export const refreshToken = async (token: string) => {
     const refresh_token = await axios.get(`${process.env.INSTAGRAM_BASE_URL}/refresh_access_token?grant_type=ig_refresh_token&access_token=${token}`)
