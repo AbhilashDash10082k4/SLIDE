@@ -4,25 +4,41 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { createUser, findUser } from "./queries";
 import { refreshToken } from "@/lib/refresh";
-import { updateIntegrations } from "../integrations";
+import { updateIntegrations } from "../integrations/query";
 
+//currentUser - allows you to securely retrieve information about the currently authenticated user during a server-side request. This fn returns an object containing the user details
 export const onCurrentUser = async () => {
-  //currentUser - allows you to securely retrieve information about the currently authenticated user during a server-side request. This fn returns an object containing the user details
   const user = await currentUser();
   if (!user) return redirect("/sign-in");
 
   return user;
 };
 
+  /* user = {
+  "id": "user_12345", - this is the clerkId
+  "firstName": "John",
+  "lastName": "Doe",
+  "emailAddresses": [
+    {
+      "id": "email_67890",
+      "emailAddress": "john.doe@example.com",
+      "verification": "verified"
+    }
+  ],
+  "username": "john_doe",
+  "createdAt": "2024-01-01T00:00:00.000Z",
+  "updatedAt": "2024-01-10T00:00:00.000Z",
+  "imageUrl": "https://example.com/avatar.jpg"
+}
+*/
 export const onBoardUser = async () => {
-  //calling the helper fn, the onCurrentUser returns user that is stored in user var,
-  // user= {id: "",email:"", firstName:"", lastName:"",username:"", etc.} has fields defined in User model as keys and respective values in an object
   const user = await onCurrentUser();
+  console.log(user);
   try {
-    //finding unique user from User 's table
-    //findUser = {id:" ",clerkId:" ",email:" ",firstname:" ",lastname:" ",createdAt:" ", subscription:{}, integrations:[{}] }
+    //finding unique user from User's table
+    //findUser = {id:" ",clerkId:" ",email:" ",firstname:" ",lastname:" ",createdAt:" ", subscription:{}, integrations:[{id:"", token:"", expiresAt:"", name:""}] }
     const found = await findUser(user.id);
-    //found = 
+    
     if (found) {
       //integrating user's insta accnt, refresh access token is used to access insta that refreshes in a certain time frame
       if (found.integrations.length > 0) {
@@ -53,6 +69,7 @@ export const onBoardUser = async () => {
             new Date(expire_date),
             found.integrations[0].id
           );
+          console.log(update_token);
           if (!update_token) {
             console.log("Update token failed");
           }
@@ -72,9 +89,23 @@ export const onBoardUser = async () => {
       user.lastName!,
       user.emailAddresses[0].emailAddress
     )
+    console.log(created);
     return {status: 201, data: created}
   } catch (error) {
     console.log(error)
     return {status : 500}
   }
 };
+
+export const onUserInfo = async () => {
+  const user = await onCurrentUser();
+  try {
+    const profile = await findUser(user.id);
+    if (profile) {
+      return {status: 200, data: profile};
+    }
+    return {status: 404}
+  } catch (error) {
+    return {status: 500}
+  }
+}
