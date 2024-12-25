@@ -4,7 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { createUser, findUser } from "./queries";
 import { refreshToken } from "@/lib/refresh";
-import { updateIntegrations } from "../integrations/query";
+import { updateIntegrations } from "../integrations/queries";
 
 //currentUser - allows you to securely retrieve information about the currently authenticated user during a server-side request. This fn returns an object containing the user details
 export const onCurrentUser = async () => {
