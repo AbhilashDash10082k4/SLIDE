@@ -14,8 +14,8 @@ export const findUser = async (clerkId: string) => {
 
     //client = an instance of db connection
     //findUnique is used with fields with @unique or @id tags only
-    //so findUser = {id:" ",clerkId:" ",email:" ",firstname:" ",lastname:" ",createdAt:" ", subscription:{}, integrations:[{}] }, automations from User table will not be shown as it is not included
-  return await client.user.findUnique({
+    //so findUser = {id:" ",clerkId:" ",email:" ",firstname:" ",lastname:" ",createdAt:" ", subscription:{}, integrations:[{id:"", token:"", expiresAt:"", name:""}] }, automations from User table will not be shown as it is not included
+  const existingUser =  await client.user.findUnique({
     where: { clerkId },
     include: {
       subscription: true,
@@ -29,6 +29,8 @@ export const findUser = async (clerkId: string) => {
       },
     },
   });
+  console.log(existingUser);
+  return existingUser;
 };
 
 export const createUser = async (
@@ -37,7 +39,7 @@ export const createUser = async (
   lastname: string,
   email: string
 ) => {
-  return await client.user.create({
+  const newUser = await client.user.create({
     data: { 
       clerkId,
       firstname,
@@ -50,4 +52,6 @@ export const createUser = async (
       lastname: true
     }
   })
+  console.log(newUser);
+  return newUser;
 }
