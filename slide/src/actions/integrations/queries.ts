@@ -10,4 +10,4 @@ export const updateIntegrations = async (token: string, expire: Date, id: string
             expiresAt: expire,
         }
     })
-} 
+}
