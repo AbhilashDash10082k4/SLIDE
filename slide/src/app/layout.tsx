@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/providers/theme-provider";
+import ReactQueryProviders from "@/providers/react-query-providers";
 
 //Metadata in this context refers to information that describes the content of a page or a layout and is used for purposes like SEO, social sharing, and browser behavior.
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"] });
@@ -29,7 +30,8 @@ export default function RootLayout({
         attribute="class" defaultTheme="dark"
         disableTransitionOnChange 
         >
-          {children}
+          <ReactQueryProviders>{children}</ReactQueryProviders>
+          
         <Toaster/>
         </ThemeProvider>
         </body>

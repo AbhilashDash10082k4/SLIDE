@@ -2,6 +2,11 @@ import Trigger from '@/components/global/automations/trigger/page'
 import AutomationBreadCrumbs from '@/components/global/bread-crumbs/automation'
 import { Warning } from '@/icons/warning'
 import React from 'react'
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query'
 
 type Props = {
     params: {id: string}
@@ -12,8 +17,10 @@ type Props = {
 const Page = ({params}: Props) => {
     //Automation editor
     //Prefetching user data
+    const query = new QueryClient()
   return (
-    <div className='flex flex-col items-center gap-y-20'>
+    <HydrationBoundary state={dehydrate(query)}>
+      <div className='flex flex-col items-center gap-y-20'>
         <AutomationBreadCrumbs id={params.id}/>
         <div className="w-full lg:w-10/12 xl:w-6/12 p-5 rounded-xl flex flex-col bg-[#1D1D1D] gap-y-3">
         <div className="flex gap-x-2">
@@ -23,6 +30,7 @@ const Page = ({params}: Props) => {
         <Trigger id={params.id}/>
         </div>
     </div>
+    </HydrationBoundary>
   )
 }
 

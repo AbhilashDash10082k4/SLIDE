@@ -33,11 +33,12 @@ export const onCurrentUser = async () => {
 */
 export const onBoardUser = async () => {
   const user = await onCurrentUser();
-  console.log(user);
+  console.log(`user = ${await currentUser()}`);
   try {
     //finding unique user from User's table
     //findUser = {id:" ",clerkId:" ",email:" ",firstname:" ",lastname:" ",createdAt:" ", subscription:{}, integrations:[{id:"", token:"", expiresAt:"", name:""}] }
     const found = await findUser(user.id);
+    console.log(`found = ${await findUser(user.id)}`)
     
     if (found) {
       //integrating user's insta accnt, refresh access token is used to access insta that refreshes in a certain time frame

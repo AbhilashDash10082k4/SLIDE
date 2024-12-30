@@ -8,7 +8,7 @@ export const createAutomations = async () => {
     try {
         //creating an automation
         const create = await createAutomation(user.id);
-        console.log(create)
+        console.log(`create = await ${createAutomation(user.id)};`)
         if (create) return {status: 200, data: 'Automation Created'}
 
         return {status: 404, data:"Something went wrong"}

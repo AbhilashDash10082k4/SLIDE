@@ -11,7 +11,7 @@ import { HelpDuoToneWhite } from "@/icons/help-duotone-white";
 import SubscriptionPlan from "../subscription-plan/subscription-plan";
 import UpgradeCard from "../sidebar/upgrade-card";
 import Sheet from "../sheet/sheet";
-import CreateAutomation from "../create-automation";
+import {CreateAutomation} from "../create-automation";
 import Search from "./search";
 import { NOtifications } from "./notifications";
 import BreadCrumbs from "../bread-crumbs/main-bread-crumbs";
